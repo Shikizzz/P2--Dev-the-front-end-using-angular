@@ -31,16 +31,18 @@ export class OlympicService {
   getOlympics() {
     return this.olympics$.asObservable();
   }
-  getPieChartData() {
-    let pieChartData: WinPerCountry[];
+  getPieChartData() {  //First attempt
+    let pieChartData: WinPerCountry[] = [];
     let medalsCounter: number = 0;
-    this.olympics$.subscribe((olympics) => {
-      olympics.forEach((olympic) => {
+    let olympics: Olympic[];
+    this.olympics$.subscribe((o) => {
+      olympics = o as Olympic[];
+      /*olympics.forEach((olympic) => {
         olympic.participations.forEach((participation) => medalsCounter += participation.medalsCount);
         pieChartData.push(new WinPerCountry(olympic.country, medalsCounter));
         medalsCounter = 0;
-      })
+      })*/
     });
-    return WinPerCountry;
+    return pieChartData;
   }
 }
