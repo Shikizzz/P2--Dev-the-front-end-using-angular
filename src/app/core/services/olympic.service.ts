@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
-import { WinPerCountry } from '../dto/winPerContry';
 
 @Injectable({
   providedIn: 'root',
@@ -31,18 +30,5 @@ export class OlympicService {
   getOlympics() {
     return this.olympics$.asObservable();
   }
-  getPieChartData() {  //First attempt
-    let pieChartData: WinPerCountry[] = [];
-    let medalsCounter: number = 0;
-    let olympics: Olympic[];
-    this.olympics$.subscribe((o) => {
-      olympics = o as Olympic[];
-      /*olympics.forEach((olympic) => {
-        olympic.participations.forEach((participation) => medalsCounter += participation.medalsCount);
-        pieChartData.push(new WinPerCountry(olympic.country, medalsCounter));
-        medalsCounter = 0;
-      })*/
-    });
-    return pieChartData;
-  }
+
 }

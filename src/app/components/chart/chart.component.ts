@@ -20,13 +20,13 @@ export class ChartComponent implements OnInit {
       labels: this.chartConfig.labels,
       datasets: [{
         label: 'Medals',
-        data: this.chartConfig.data,
-        hoverOffset: 4
+        data: this.chartConfig.data
       }]
     };
     let config: any = {
       type: this.chartConfig.type,
       data: chartData,
+      options: this.chartConfig.options
     };
 
     this.chart = new Chart("MyChart", config);

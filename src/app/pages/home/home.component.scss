@@ -1,0 +1,35 @@
+.page_container{
+    text-align: center;
+}
+
+.chart_container{
+    max-height: 50vh; //why not working ?
+    width: 50vh;
+    margin:auto;
+}
+
+.title{
+    width: fit-content;
+    padding: 0.4em;
+    margin: auto;
+    color: white;
+    border-radius : 0.3em;
+    background-color: #07706d;
+    font-weight: normal;
+    margin-top: 1em;
+}
+
+.chart_infos{
+    display: inline-block;
+    margin: 1em;
+    padding: 0.4em;
+    border-radius : 0.4em;
+    border-style: solid;
+    border-color: #07706d;
+}
+
+p{
+    margin-top: 0;
+    margin-bottom: 0.1em;
+    color: rgb(100, 100, 100);
+}
