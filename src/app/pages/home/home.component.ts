@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    this.myChartConfig = new ChartConfig("pie", [], [], {});
+    this.myChartConfig = new ChartConfig("MyPieChart", "pie", [], [], {});
     this.initilizeChart();
     this.generateRouting();
   }
@@ -66,7 +66,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.myChartConfig.options = {
       onClick: (event: any, elements: any) => {
         const clickedElement: number = elements[0].index;
-        console.log(clickedElement);
         const countryId = clickedElement + 1;
 
         this.router.navigateByUrl('country/' + countryId)

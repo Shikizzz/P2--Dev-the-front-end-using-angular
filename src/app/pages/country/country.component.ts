@@ -31,19 +31,21 @@ export class CountryComponent implements OnInit {
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    this.olympicId = this.route.snapshot.params['id'] as number; //then use .find((array.id) => id === olympicId)
-    this.myChartConfig = new ChartConfig("line", [], [], { responsive: true });
+    this.olympicId = this.route.snapshot.params['id'] as number;
+    this.myChartConfig = new ChartConfig("MyLineChart", "line", [], [], { responsive: true });
     this.extractAllData();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 
   extractAllData() {
     this.subscription = this.olympics$.subscribe(
       data => {
-        this.olympicCountry = data.find(olympic => olympic.id == this.olympicId) as Olympic; //doesn't work with === , why ?
+        let findResult: Olympic | undefined = data.find(olympic => olympic.id == this.olympicId);
+        if (typeof findResult == "object") { this.olympicCountry = findResult; } //if country ID exists, we continue
+        else this.router.navigateByUrl(`notFound`); // else we retirect to error page
         this.countAndInitializeChart();
       })
   }
@@ -60,7 +62,5 @@ export class CountryComponent implements OnInit {
   goHome() {
     this.router.navigateByUrl(``);
   }
-
-
 
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { ChartConfig } from 'src/app/core/dto/ChartConfig';
 Chart.register(...registerables)
@@ -10,12 +10,11 @@ Chart.register(...registerables)
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements AfterViewInit {
   @Input() chartConfig!: ChartConfig;
-
   chart: any;
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     let chartData: any = {
       labels: this.chartConfig.labels,
       datasets: [{
@@ -28,8 +27,8 @@ export class ChartComponent implements OnInit {
       data: chartData,
       options: this.chartConfig.options
     };
-
-    this.chart = new Chart("MyChart", config);
+    console.log(this.chartConfig.id);
+    this.chart = new Chart(this.chartConfig.id, config);
   }
 
 }

@@ -11,17 +11,17 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'test',
-    component: ChartComponent,
-  },
-  {
     path: 'country/:id',
     component: CountryComponent,
   },
   {
-    path: '**', // wildcard
+    path: 'notFound',
     component: NotFoundComponent,
   },
+  {
+    path: '**', // wildcard
+    component: NotFoundComponent,
+  }
 ];
 
 @NgModule({
