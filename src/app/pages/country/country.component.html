@@ -1,0 +1,23 @@
+<div class = page_container>
+    <h2 class="title">{{olympicCountry.country}}</h2>
+    <div class = "boxes">
+        <div class="chart_infos">
+            <p>Number of entries</p> 
+            {{ olympicCountry.participations.length }}
+        </div>
+        <div class="chart_infos">
+            <p>Total number medals</p> 
+            {{ medalsCount }}
+        </div>
+        <div class="chart_infos">
+            <p>Total number of athletes</p> 
+            {{ athletesCount }}
+        </div>
+    </div>
+    <div class="chart_container">
+        <app-chart [chartConfig]="myChartConfig"></app-chart>
+    </div>
+    <div class="button_container">
+    <button (click)="goHome()">Back to Home</button>
+    </div>
+</div>

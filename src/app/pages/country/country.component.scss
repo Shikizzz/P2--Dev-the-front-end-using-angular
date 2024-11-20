@@ -3,8 +3,9 @@
 }
 
 .chart_container{
-    max-height: 50vh; //why not working ?
-    width: 50vh;
+    
+    //height: 50vh; //why not working ?
+    width: 65%;
     margin:auto;
 }
 
@@ -33,3 +34,14 @@ p{
     margin-bottom: 0.1em;
     color: rgb(100, 100, 100);
 }
+
+button{
+    font-size: 1em;
+    width : fit-content;
+    color: white;
+    border-radius : 0.5em;
+    background-color: #d93b3b;
+    margin : 1em auto;
+    padding: 0.5em 0.8em;
+}
+
