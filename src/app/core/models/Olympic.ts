@@ -7,11 +7,3 @@ export class Olympic {
         public participations: Participation[]
     ) { }
 }
-
-/*
-export interface Olympic {
-    id: number;
-    country: string;
-    participations: Participation[];
-}
-*/

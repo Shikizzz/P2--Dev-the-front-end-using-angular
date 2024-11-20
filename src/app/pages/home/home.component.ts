@@ -6,7 +6,6 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 import { ChartComponent } from 'src/app/components/chart/chart.component';
 import { AsyncPipe } from '@angular/common';
 import { ChartConfig } from 'src/app/core/dto/ChartConfig';
-import { WinPerCountry } from 'src/app/core/dto/WinPerContry';
 
 
 @Component({
@@ -22,55 +21,52 @@ export class HomeComponent implements OnInit, OnDestroy {
   public olympics$!: Observable<Olympic[]>;
   public subscription!: Subscription;
 
-  constructor(private olympicService: OlympicService, private router: Router) { }
+  constructor(private olympicService: OlympicService) { }
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    this.myChartConfig = new ChartConfig("MyPieChart", "pie", [], [], {});
-    this.initilizeChart();
-    this.generateRouting();
+    this.myChartConfig = new ChartConfig("MyPieChart", "pie", [], [], new Map<string, number>());
+    this.configureChart();
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
   }
 
-  initilizeChart() {
+  configureChart() {
     let olympics: Olympic[] = [];
     this.subscription = this.olympics$.subscribe(
       data => {
         data.forEach(olympic => {
           olympics.push(olympic);
         })
-        let winPerCountry: WinPerCountry[] = this.getMedalsPerCountry(olympics);
-        this.myChartConfig.labels = winPerCountry.map(o => o.country);
-        this.myChartConfig.data = winPerCountry.map(o => o.medals);
+        let winPerCountry: Map<string, number> = this.getMedalsPerCountry(olympics); //we count medals for each country
+        this.myChartConfig.labels = Array.from(winPerCountry.keys());
+        this.myChartConfig.data = Array.from(winPerCountry.values());
+        this.myChartConfig.countryIdsMap = this.setCountryIdMap(olympics); //mapping country with Ids, 
       }
     );
   }
 
-  getMedalsPerCountry(olympics: Olympic[]): WinPerCountry[] {
-    let winsArray: WinPerCountry[] = [];
+  getMedalsPerCountry(olympics: Olympic[]): Map<string, number> {
+    let winsArray: Map<string, number> = new Map();;
     olympics.forEach(olympic => {
       let country: string = olympic.country;
       let medals: number = 0;
       olympic.participations.forEach(participation => {
         medals += participation.medalsCount
       });
-      winsArray.push(new WinPerCountry(country, medals));
+      winsArray.set(country, medals);
     });
     return winsArray;
   }
 
-  generateRouting() {
-    this.myChartConfig.options = {
-      onClick: (event: any, elements: any) => {
-        const clickedElement: number = elements[0].index;
-        const countryId = clickedElement + 1;
-
-        this.router.navigateByUrl('country/' + countryId)
-      }
-    }
+  setCountryIdMap(olympics: Olympic[]): Map<string, number> {
+    let countryIds: Map<string, number> = new Map<string, number>();
+    olympics.forEach(olympic => {
+      countryIds.set(olympic.country, olympic.id);
+    });
+    return countryIds;
   }
 
 }

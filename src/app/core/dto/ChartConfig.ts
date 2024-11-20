@@ -4,6 +4,6 @@ export class ChartConfig {
         public type: string,
         public labels: string[],
         public data: number[],
-        public options: any
+        public countryIdsMap: Map<string, number>
     ) { }
 }

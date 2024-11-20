@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { Router } from '@angular/router';
+import { Chart, ChartTypeRegistry, registerables } from 'chart.js';
+import { ChartEvent } from 'chart.js/dist/core/core.plugins';
+import { ActiveElement } from 'chart.js/dist/plugins/plugin.tooltip';
 import { ChartConfig } from 'src/app/core/dto/ChartConfig';
 Chart.register(...registerables)
 
@@ -12,23 +15,32 @@ Chart.register(...registerables)
 })
 export class ChartComponent implements AfterViewInit {
   @Input() chartConfig!: ChartConfig;
-  chart: any;
+  chart!: Chart;
+
+  constructor(private router: Router) { };
 
   ngAfterViewInit(): void {
-    let chartData: any = {
-      labels: this.chartConfig.labels,
-      datasets: [{
-        label: 'Medals',
-        data: this.chartConfig.data
-      }]
-    };
-    let config: any = {
-      type: this.chartConfig.type,
-      data: chartData,
-      options: this.chartConfig.options
-    };
-    console.log(this.chartConfig.id);
-    this.chart = new Chart(this.chartConfig.id, config);
+
+    new Chart(this.chartConfig.id, {
+      type: this.chartConfig.type as keyof ChartTypeRegistry, //forcing, because we give a String, and not every string is valid
+      data: {
+        labels: this.chartConfig.labels,
+        datasets: [{
+          label: 'Medals',
+          data: this.chartConfig.data
+        }]
+      },
+      options: this.chartConfig.type == "pie" ? //if the Chart is a Pie, we configure routing
+        {
+          onClick: (event: ChartEvent, elements: ActiveElement[]) => {
+            console.log(typeof (elements));
+            const clickedElement: number = elements[0].index;
+            const country: string = this.chartConfig.labels[clickedElement];
+            this.router.navigateByUrl('country/' + this.chartConfig.countryIdsMap.get(country));
+          }
+        } : {}
+    }
+    );
   }
 
 }

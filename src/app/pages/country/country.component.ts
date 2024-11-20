@@ -32,8 +32,8 @@ export class CountryComponent implements OnInit {
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     this.olympicId = this.route.snapshot.params['id'] as number;
-    this.myChartConfig = new ChartConfig("MyLineChart", "line", [], [], { responsive: true });
-    this.extractAllData();
+    this.myChartConfig = new ChartConfig("MyLineChart", "line", [], [], new Map<string, number>()); //Chart initialization
+    this.extractAllData();  //Chart configuration
   }
 
   ngOnDestroy(): void {
