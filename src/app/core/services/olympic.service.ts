@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class OlympicService {
-  private olympicUrl = './assets/mock/olympic.json';
+  private olympicUrl = './/assets/mock/olympic.json';
   private olympic: Olympic[] = {} as Olympic[];  //for initialization of the following BehaviorSubject
   private olympics$ = new BehaviorSubject<Olympic[]>(this.olympic);
 
@@ -19,8 +19,9 @@ export class OlympicService {
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
-        console.error(error); // can be useful to end loading state and let the user know something went wrong
+        console.error("An error occured loading data");
         this.olympics$.next(this.olympic);
+        this.router.navigateByUrl("notFound");
         return caught;
       })
     );
