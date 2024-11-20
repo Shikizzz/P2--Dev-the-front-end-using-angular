@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class OlympicService {
-  private olympicUrl = './/assets/mock/olympic.json';
+  private olympicUrl = './assets/mock/olympic.json';
   private olympic: Olympic[] = {} as Olympic[];  //for initialization of the following BehaviorSubject
   private olympics$ = new BehaviorSubject<Olympic[]>(this.olympic);
 
