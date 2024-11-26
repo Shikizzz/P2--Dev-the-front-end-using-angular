@@ -20,4 +20,5 @@ ChartComponent is the component used to generate the two charts of the applicati
 It takes a ChartConfig object in attribute, with an @Input tag, to inject the chart type, data and labels at component creation.
 
 HomeComponent and CountryComponent are the the pages of the application.
-They get the raw data as Observable from the service, and arrange them to initialize a ChartConfig object, in order to display the needed Chart.
+They get the raw data as Observable from the service, and arrange them to initialize a ChartConfig object, in order to display the needed Chart using Property Binding in the template.
+
