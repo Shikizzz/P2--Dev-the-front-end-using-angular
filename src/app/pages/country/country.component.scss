@@ -3,10 +3,11 @@
 }
 
 .chart_container{
-    
-    //height: 50vh; //why not working ?
-    width: 65%;
-    margin:auto;
+    position: relative;
+    margin: auto;
+    //height: 120vh;
+    min-width: 60vw;
+    max-width: 60vh;
 }
 
 .title{
@@ -20,19 +21,40 @@
     margin-top: 1em;
 }
 
+.boxes{
+    margin: 0.5em;
+}
+
 .chart_infos{
     display: inline-block;
-    margin: 1em;
-    padding: 0.4em;
     border-radius : 0.4em;
     border-style: solid;
     border-color: #07706d;
+}
+@media (max-aspect-ratio: 1) {
+  .page_container {
+    font-size: 0.8em;
+  }
+  .chart_infos{
+    margin: 0.4em 0.5em 0.4em 0.5em;
+    padding: 0.3em;
+    }
+}
+@media (min-aspect-ratio: 1) {
+  .chart_infos{
+    margin: 0.5em 1em 0.5em 1em;
+    padding: 0.4em;
+    }
 }
 
 p{
     margin-top: 0;
     margin-bottom: 0.1em;
     color: rgb(100, 100, 100);
+}
+
+.button_container{
+    display: block;
 }
 
 button{
