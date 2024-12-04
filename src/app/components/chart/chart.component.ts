@@ -30,15 +30,16 @@ export class ChartComponent implements AfterViewInit {
           data: this.chartConfig.data
         }]
       },
-      options: this.chartConfig.type == "pie" ? //if the Chart is a Pie, we configure routing
-        {
-          onClick: (event: ChartEvent, elements: ActiveElement[]) => {
-            console.log(typeof (elements));
-            const clickedElement: number = elements[0].index;
-            const country: string = this.chartConfig.labels[clickedElement];
-            this.router.navigateByUrl('country/' + this.chartConfig.countryIdsMap.get(country));
-          }
-        } : {}
+      options:
+        this.chartConfig.type == "pie" ? //if the Chart is a Pie, we configure routing
+          {
+            onClick: (event: ChartEvent, elements: ActiveElement[]) => {
+              console.log(typeof (elements));
+              const clickedElement: number = elements[0].index;
+              const country: string = this.chartConfig.labels[clickedElement];
+              this.router.navigateByUrl('country/' + this.chartConfig.countryIdsMap.get(country));
+            }
+          } : { responsive: true }
     }
     );
   }
